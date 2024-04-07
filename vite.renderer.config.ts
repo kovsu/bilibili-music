@@ -25,5 +25,19 @@ export default defineConfig((env) => {
       },
     },
     clearScreen: false,
+    server: {
+      proxy: {
+        '/api': {
+          target: 'https://api.bilibili.com',
+          changeOrigin: true,
+          // !!! 这个是关键 !!!
+          headers: {
+            host: 'https://api.bilibili.com',
+            referer: '',
+          },
+          rewrite: path => path.replace(/^\/api/, ''),
+        },
+      },
+    },
   } as UserConfig
 })

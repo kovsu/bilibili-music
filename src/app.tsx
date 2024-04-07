@@ -1,5 +1,11 @@
 import { createRoot } from 'react-dom/client'
-import Test from '~/components/test'
+import Player from './components/player'
+import Home from '~/pages/home'
 
 const root = createRoot(document.getElementById('app'))
-root.render(<Test />)
+root.render(
+  <>
+    <Home />
+    <Player bvid="" />
+  </>,
+)
