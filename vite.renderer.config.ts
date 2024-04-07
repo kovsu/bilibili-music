@@ -1,12 +1,13 @@
-import type { ConfigEnv, UserConfig } from 'vite';
-import { defineConfig } from 'vite';
-import { pluginExposeRenderer } from './vite.base.config';
+import path from 'node:path'
+import type { ConfigEnv, UserConfig } from 'vite'
+import { defineConfig } from 'vite'
+import { pluginExposeRenderer } from './vite.base.config'
 
 // https://vitejs.dev/config
 export default defineConfig((env) => {
-  const forgeEnv = env as ConfigEnv<'renderer'>;
-  const { root, mode, forgeConfigSelf } = forgeEnv;
-  const name = forgeConfigSelf.name ?? '';
+  const forgeEnv = env as ConfigEnv<'renderer'>
+  const { root, mode, forgeConfigSelf } = forgeEnv
+  const name = forgeConfigSelf.name ?? ''
 
   return {
     root,
@@ -18,7 +19,11 @@ export default defineConfig((env) => {
     plugins: [pluginExposeRenderer(name)],
     resolve: {
       preserveSymlinks: true,
+      // alias
+      alias: {
+        '~': path.resolve(__dirname, 'src'),
+      },
     },
     clearScreen: false,
-  } as UserConfig;
-});
+  } as UserConfig
+})
